@@ -32,7 +32,8 @@ public final class WindowManager {
                 cls.getMethod("watchRotation", IRotationWatcher.class).invoke(manager, rotationWatcher);
             } catch (NoSuchMethodException e) {
                 // display parameter added since this commit:
-                // https://android.googlesource.com/platform/frameworks/base/+/35fa3c26adcb5f6577849fd0df5228b1f67cf2c6%5E%21/#F1
+                // https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/wm/WindowManagerService.java;drc=03de64bece0fe350f249b691682ffc44cf9fff73;l=4463
+                // https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/view/IRotationWatcher.aidl;drc=9066cfe9886ac131c34d59ed0e2d287b0e3c0087;l=23
                 cls.getMethod("watchRotation", IRotationWatcher.class, int.class).invoke(manager, rotationWatcher, 0);
             }
         } catch (Exception e) {
