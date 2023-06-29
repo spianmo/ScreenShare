@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import org.loka.screensharekit.EncodeBuilder
 import org.loka.screensharekit.ScreenShareKit
 import org.loka.screensharekit.callback.AudioCallBack
@@ -28,19 +29,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestCapture() {
 
-        ScreenShareKit.init(this).onH264(object :H264CallBack{
-            override fun onH264(
-                buffer: ByteBuffer,
-                isKeyFrame: Boolean,
-                width: Int,
-                height: Int,
-                ts: Long
-            ) {
-            }
+        ScreenShareKit.init(this)
+            .config(screenDataType = EncodeBuilder.SCREEN_DATA_TYPE.H264, audioCapture = false)
+            .onH264 { buffer, isKeyFrame, width, height, ts ->
+                // h264 data
+            }.onRGBA { rgba, width, height, stride, rotation, rotationChanged ->
 
-        }).onStart({
-            //用户同意采集，开始采集数据
-        }).start()
-
+            }.onStart {
+                // toast
+                Toast.makeText(this, "start", Toast.LENGTH_SHORT).show()
+            }.onError { err ->
+                // toast
+                Toast.makeText(this, err.message, Toast.LENGTH_SHORT).show()
+            }.start()
     }
 }

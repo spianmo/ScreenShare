@@ -159,6 +159,8 @@ class EncodeBuilder(fragment: Fragment?,fragmentActivity: FragmentActivity?):Dev
             } else {
                encodeConfig.audioCapture = false
             }
+        } else {
+            encodeConfig.audioCapture = false
         }
         return this
     }
